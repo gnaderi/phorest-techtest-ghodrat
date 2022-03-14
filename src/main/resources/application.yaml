@@ -1,0 +1,24 @@
+sm:
+  application:
+    name:  Phorest Salon Ghodrat Version
+    version: ${version}
+spring:
+  application:
+    name: Salon
+  profiles:
+    active: LOCAL
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    throw-exception-if-no-handler-found: false
+  servlet:
+    multipart:
+      max-file-size:  1MB
+      max-request-size: 10MB
+server:
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true

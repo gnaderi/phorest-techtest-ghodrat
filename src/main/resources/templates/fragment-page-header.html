@@ -1,0 +1,36 @@
+<th:block th:fragment="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="/" th:classappend="${#httpServletRequest.getRequestURI().equals('/')||
+                        #httpServletRequest.getRequestURI().endsWith('index.html') ? 'active':''}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Purchases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secure/uploadCsvFile" th:classappend="${#httpServletRequest.getRequestURI().endsWith('/uploadCsvFile') ? 'active':''}" > Import CSV Files</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item  justify-content-end">
+                        <a class="nav-link" href="#">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</th:block>
