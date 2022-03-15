@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+    <title>Clients Page </title>
+</head>
+
+
+<body>
+<div th:replace="fragment-page-header :: page-header"/>
+<div class="container">
+    <div class="row">
+        <h3 class="bg-success">List of Clients</h3>
+        <table class="table card-body  table-bordered table-striped small sortable">
+            <thead>
+            <tr>
+                <th> Id</th>
+                <th> First Name</th>
+                <th> Last Name</th>
+                <th> Email</th>
+                <th> Phone</th>
+                <th> Gender</th>
+                <th> Banned</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${clients.empty}">
+                <td colspan="2"> No Clients Info Available</td>
+            </tr>
+            <tr th:each="client : ${clients}">
+                <td><span>
+                    <a target="_blank" th:href="@{/secured/clients/{clientId}/appointments(clientId=${client.id})}"
+                       th:text="${client.id}"/></span>
+                </td>
+                <td><span th:text="${client.firstName}">  </span></td>
+                <td><span th:text="${client.lastName}"> </span></td>
+                <td><span th:text="${client.email}">   </span></td>
+                <td><span th:text="${client.phone}"> </span></td>
+                <td><span th:text="${client.gender}"> </span></td>
+                <td><span th:text="${client.banned}"></span></td>
+
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</body>
+
+
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+</html>
+

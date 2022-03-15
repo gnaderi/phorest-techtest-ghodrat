@@ -1,4 +1,4 @@
-## CRO project notes
+## Salon Docker project notes
 
 Following instructions explain how to publish Salon tutorial APIs via a portable Docker container.
 
@@ -9,18 +9,23 @@ You need to have:
 - CRO project sources locally compiled, and shell pointing to project root.
 
 
-### Build image
-`mvn clean package docker:build`
+### Build Project
+`cd` into the project source code.
+`gradle clean build`
+jar file will be built under the `build/libs` folder.
 
-Now if you issue a `docker images` command you should see `Salon:latest` image listed.
+### Build Salon Image
+`docker build --build-arg JAR_FILE="build/libs/*.jar" -t salon .`
+or
+`docker build -t salon .`
+
+Now if you issue a `docker images` command you should see `salon:latest` image listed.
 
 
-### Start container
+#### Run Salon app
+Basic usage with defaults: server IP 127.0.0.1, server port 8080
 
-#### From Maven, default endpoint
-Basic usage with defaults: server IP 127.0.0.1, server port 8443
-
-`mvn docker:start`
+`docker run -p 8080:8080 salon `
 
 #### From Maven, custom endpoint
 Advanced usage: custom server IP and server port
@@ -30,7 +35,7 @@ Advanced usage: custom server IP and server port
 where `<SERVER_IP>` and `<SERVER_PORT>` are the IP address and port where Maven will test health check against (usually localhost, 127.0.0.1, or 192.168.99.100 on legacy Docker Toolbox).
 
 #### From command line
-`docker run -d -p <SERVER_PORT>:8080 Salon`
+`docker run -d -p <SERVER_PORT>:8080 salon`
 
 Now if you issue a `docker ps` command you should see a new running container listed.
 

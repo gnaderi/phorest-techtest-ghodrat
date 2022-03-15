@@ -1,4 +1,4 @@
-package com.naderi.phorest.salon.dto;
+package com.naderi.phorest.salon.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

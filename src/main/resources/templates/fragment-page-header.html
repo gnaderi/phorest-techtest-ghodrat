@@ -8,19 +8,13 @@
                         #httpServletRequest.getRequestURI().endsWith('index.html') ? 'active':''}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Clients</a>
+                        <a class="nav-link" href="/secured/clients"
+                           th:classappend="${#httpServletRequest.getRequestURI().endsWith('/clients') ? 'active':''}">Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Purchases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/secure/uploadCsvFile" th:classappend="${#httpServletRequest.getRequestURI().endsWith('/uploadCsvFile') ? 'active':''}" > Import CSV Files</a>
+                        <a class="nav-link" href="/secure/uploadCsvFile"
+                           th:classappend="${#httpServletRequest.getRequestURI().endsWith('/uploadCsvFile') ? 'active':''}">
+                            Import CSV Files</a>
                     </li>
                 </ul>
             </div>

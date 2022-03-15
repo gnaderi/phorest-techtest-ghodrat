@@ -1,6 +1,6 @@
 package com.naderi.phorest.salon.controller;
 
-import com.naderi.phorest.salon.dto.Category;
+import com.naderi.phorest.salon.common.Category;
 import com.naderi.phorest.salon.service.CsvFileImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

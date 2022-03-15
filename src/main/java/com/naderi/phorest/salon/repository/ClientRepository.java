@@ -11,7 +11,5 @@ import java.util.List;
 
 @Transactional
 @Repository
-public interface ClientRepository extends CrudRepository<Client, Long> {
-    @Query("select u from Client  u where u.firstName=:firstName")
-    List<Client> findClientsByFirstName(@Param("firstName") String firstName);
+public interface ClientRepository extends CrudRepository<Client, String> {
 }

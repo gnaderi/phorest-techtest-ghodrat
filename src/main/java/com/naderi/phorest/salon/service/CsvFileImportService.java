@@ -1,6 +1,7 @@
 package com.naderi.phorest.salon.service;
 
-import com.naderi.phorest.salon.dto.Category;
+
+import com.naderi.phorest.salon.common.Category;
 
 import java.util.List;
 
