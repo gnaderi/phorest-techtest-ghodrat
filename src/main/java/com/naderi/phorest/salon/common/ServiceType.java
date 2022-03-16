@@ -4,26 +4,26 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.lang.Nullable;
 
-public enum Category {
-    CLIENT("client"), APPOINTMENT("appointment"), SERVICE("service"), PURCHASE("purchase");
+public enum ServiceType {
+    SERVICE("service"), PURCHASE("purchase");
     private String value;
 
-    Category(String typeValue) {
+    ServiceType(String typeValue) {
         this.value = typeValue;
     }
 
     @JsonCreator
-    public static Category of(String name) {
-        Category category = resolve(name);
+    public static ServiceType of(String name) {
+        ServiceType category = resolve(name);
         if (category == null) {
-            throw new IllegalArgumentException("No matching Category for value[" + name + "]");
+            throw new IllegalArgumentException("No matching Service Type for value[" + name + "]");
         }
         return category;
     }
 
     @Nullable
-    private static Category resolve(String name) {
-        for (Category category : values()) {
+    private static ServiceType resolve(String name) {
+        for (ServiceType category : values()) {
             if (category.getValue().equalsIgnoreCase(name)) {
                 return category;
             }

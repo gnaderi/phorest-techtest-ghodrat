@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -27,6 +29,14 @@ public class ClientController extends BaseController {
         model.addAttribute("clients", allClients);
         return "pages/clients";
     }
+    @GetMapping(value = {"/clients/orderByLoyalty"})
+    public String orderByLoyalty(Model model) {
+        List<ClientDto> allClients = salonService.sortAllClientByLoyalty();
+        model.addAttribute("client", new ClientDto());
+        model.addAttribute("clients", allClients);
+        return "pages/clients";
+    }
+
 
     @GetMapping(value = {"/clients/{clientId}/delete"})
     public String deleteClient(Model model, @NotNull @PathVariable String clientId) {
@@ -100,5 +110,10 @@ public class ClientController extends BaseController {
     public ResponseEntity<?> deleteClientById(@NotNull @PathVariable String clientId) {
         salonService.deleteClient(clientId);
         return ResponseEntity.ok(String.format("Client[%s] has deleted successfully!", clientId));
+    }
+    @RequestMapping(value = {"/restapi/v1/clients/top"}, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> topNLoyalClients(@NotNull @RequestParam("top") Integer top,@NotNull @RequestParam("date") String date) {
+        return ResponseEntity.ok(salonService.topNLLoyalClientsByLoyaltiesPoints(top, LocalDate.parse(date, DateTimeFormatter.ISO_DATE).atStartOfDay()));
     }
 }

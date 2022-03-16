@@ -1,14 +1,13 @@
 package com.naderi.phorest.salon.service;
 
+import com.naderi.phorest.salon.common.ServiceType;
 import com.naderi.phorest.salon.common.exception.InvalidRequestException;
 import com.naderi.phorest.salon.dto.AppointmentDto;
 import com.naderi.phorest.salon.dto.ClientDto;
-import com.naderi.phorest.salon.dto.PurchaseDto;
 import com.naderi.phorest.salon.dto.ServiceDto;
 import com.naderi.phorest.salon.entity.Client;
 import com.naderi.phorest.salon.repository.AppointmentRepository;
 import com.naderi.phorest.salon.repository.ClientRepository;
-import com.naderi.phorest.salon.repository.PurchaseRepository;
 import com.naderi.phorest.salon.repository.ServiceRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,26 +15,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SalonServiceImpl implements SalonService {
     private ClientRepository clientRepository;
     private AppointmentRepository appointmentRepository;
     private ServiceRepository serviceRepository;
-    private PurchaseRepository purchaseRepository;
 
-    public SalonServiceImpl(ClientRepository clientRepository, AppointmentRepository appointmentRepository, ServiceRepository serviceRepository, PurchaseRepository purchaseRepository) {
+    public SalonServiceImpl(ClientRepository clientRepository, AppointmentRepository appointmentRepository, ServiceRepository serviceRepository) {
         this.clientRepository = clientRepository;
         this.appointmentRepository = appointmentRepository;
         this.serviceRepository = serviceRepository;
-        this.purchaseRepository = purchaseRepository;
     }
 
     @Override
     public ClientDto findClientById(String clientId) {
         Client c = clientRepository.findById(clientId).orElseThrow(() -> new InvalidRequestException("Client Id[" + clientId + "] is not valid!"));
-        return new ClientDto(c.getId(), c.getFirstName(),
-                c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned());
+        return client2Dto(c);
 
     }
 
@@ -56,8 +53,7 @@ public class SalonServiceImpl implements SalonService {
         client.setBanned(dto.getBanned());
         client.setUpdatedDate(LocalDateTime.now());
         Client c = clientRepository.save(client);
-        return new ClientDto(c.getId(), c.getFirstName(),
-                c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned());
+        return client2Dto(c);
     }
 
     @Override
@@ -69,10 +65,14 @@ public class SalonServiceImpl implements SalonService {
     public List<ClientDto> findAllClients() {
         List<ClientDto> clients = new ArrayList<>();
         clientRepository.findAll().forEach(c -> {
-            clients.add(new ClientDto(c.getId(), c.getFirstName(),
-                    c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned()));
+            clients.add(client2Dto(c));
         });
         return clients;
+    }
+
+    private ClientDto client2Dto(Client c) {
+        return new ClientDto(c.getId(), c.getFirstName(),
+                c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned());
     }
 
     @Override
@@ -85,21 +85,22 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    public List<ServiceDto> findAppointmentServices(String appointmentId) {
+    public List<ServiceDto> findAppointmentServices(String appointmentId, ServiceType serviceType) {
         List<ServiceDto> services = new ArrayList<>();
 
-        serviceRepository.findAllByAppointmentId(appointmentId).forEach(service -> {
+        serviceRepository.findAllByAppointmentId(appointmentId, serviceType.getValue()).forEach(service -> {
             services.add(new ServiceDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(), service.getLoyaltyPoints()));
         });
         return services;
     }
 
     @Override
-    public List<PurchaseDto> findAppointmentPurchases(String appointmentId) {
-        List<PurchaseDto> purchases = new ArrayList<>();
-        purchaseRepository.findAllByAppointmentId(appointmentId).forEach(service -> {
-            purchases.add(new PurchaseDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(), service.getLoyaltyPoints()));
-        });
-        return purchases;
+    public List<ClientDto> topNLLoyalClientsByLoyaltiesPoints(Integer top, LocalDateTime dateTime) {
+        return clientRepository.topNLLoyalClientsByLoyaltiesPoints(top, dateTime).parallelStream().map(this::client2Dto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientDto> sortAllClientByLoyalty() {
+        return clientRepository.sortAllClientByLoyalty().parallelStream().map(this::client2Dto).collect(Collectors.toList());
     }
 }

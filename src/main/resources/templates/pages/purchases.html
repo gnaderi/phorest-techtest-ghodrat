@@ -28,11 +28,11 @@
             <tr th:if="${purchases.empty}">
                 <td colspan="2"> No Purchase Info Available</td>
             </tr>
-            <tr th:each="purchase : ${purchases}">
-                <td><span th:text="${purchase.id}">  </span></td>
-                <td><span th:text="${purchase.name}"> </span></td>
-                <td><span th:text="${purchase.price}">   </span></td>
-                <td><span th:text="${purchase.loyaltyPoints}">   </span></td>
+            <tr th:each="service : ${purchases}">
+                <td><span th:text="${service.id}">  </span></td>
+                <td><span th:text="${service.name}"> </span></td>
+                <td><span th:text="${service.price}">   </span></td>
+                <td><span th:text="${service.loyaltyPoints}">   </span></td>
             </tr>
             </tbody>
 

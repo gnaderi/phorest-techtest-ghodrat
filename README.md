@@ -19,7 +19,7 @@ The exported data is split across 4 files.
 
 Each client has many appointments and are related through a `client_id` property on the appointment
 Each appointment has many services and are related through an `appointment_id` property on the service
-Each appointments has 0 or many purchases and are related through an `appointment_id` property on the purchase
+Each appointments has 0 or many purchases and are related through an `appointment_id` property on the service
 Services and purchases have an associated number of loyalty points defined as a property
 Clients have a boolean banned property defined on the client
 

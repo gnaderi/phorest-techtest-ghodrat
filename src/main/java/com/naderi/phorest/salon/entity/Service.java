@@ -3,9 +3,11 @@ package com.naderi.phorest.salon.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,6 +23,10 @@ public class Service {
     @Column(name = "appointment_id")
     private String appointmentId;
 
+
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "name")
     private String name;
 
@@ -35,4 +41,5 @@ public class Service {
 
     @Column
     private LocalDateTime updatedDate;
+
 }

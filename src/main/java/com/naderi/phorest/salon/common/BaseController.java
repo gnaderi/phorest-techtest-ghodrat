@@ -1,8 +1,8 @@
 package com.naderi.phorest.salon.common;
 
 import com.naderi.phorest.salon.common.exception.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.dao.DataAccessException;
@@ -29,9 +29,9 @@ import static java.util.stream.Collectors.toList;
 
 public abstract class BaseController {
     private static final String ERROR_PAGES_NAME = "pages/error";
-    private final static Logger LOGGER = LogManager.getLogger();
     @Value("${spring.profiles.active}")
     protected String activeProfile;
+    private final static Logger log = LoggerFactory.getLogger(BaseController.class);
 
     @ExceptionHandler(InvalidYamlInputException.class)
     public ModelAndView InvalidYamlInputExceptionHandler(HttpServletRequest req, InvalidYamlInputException exception) {
@@ -86,7 +86,7 @@ public abstract class BaseController {
     public void handleConstraintViolationException(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations) {
-            LOGGER.debug("Field Validation Failed : Message : {}  rootbean: {}  property: {} invalid value: {}", violation.getMessage(), violation.getRootBean(), violation.getPropertyPath(), violation.getInvalidValue());
+            log.debug("Field Validation Failed : Message : {}  rootbean: {}  property: {} invalid value: {}", violation.getMessage(), violation.getRootBean(), violation.getPropertyPath(), violation.getInvalidValue());
         }
     }
 
@@ -137,9 +137,9 @@ public abstract class BaseController {
 
         HttpStatus responseStatus = resolveAnnotatedResponseStatus(exception);
         if (responseStatus.equals(HttpStatus.UNPROCESSABLE_ENTITY) || responseStatus.equals(HttpStatus.NOT_FOUND))
-            LOGGER.info("Request: {} raised {}", req.getRequestURL(), responseStatus.value());
+            log.info("Request: {} raised {}", req.getRequestURL(), responseStatus.value());
         else {
-            LOGGER.error("Request: {} raised: ", req.getRequestURL(), exception);
+            log.error("Request: {} raised: ", req.getRequestURL(), exception);
         }
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(responseStatus, errorCode, exception);
 
@@ -148,8 +148,8 @@ public abstract class BaseController {
 
     private ModelAndView getModelAndView(String url, HttpStatus responseStatus, ApiErrorResponse response) {
 
-        LOGGER.info("Unchecked Exception: ErrorStatusCode:[{}]", responseStatus);
-        LOGGER.info("Unchecked Exception: Error Message: Page/resource [{}] {}", url, response.getMessage());
+        log.info("Unchecked Exception: ErrorStatusCode:[{}]", responseStatus);
+        log.info("Unchecked Exception: Error Message: Page/resource [{}] {}", url, response.getMessage());
         ModelAndView modelAndView = new ModelAndView(ERROR_PAGES_NAME, HttpStatus.BAD_REQUEST);
         modelAndView.addObject("datetime", LocalDateTime.now());
         modelAndView.addObject("statusCode", responseStatus != null ? responseStatus : HttpStatus.NOT_FOUND.value());

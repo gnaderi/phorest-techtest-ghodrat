@@ -18,8 +18,8 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="form-check">
-                            <input class="form-check-input text-success" id="btnRadioClient" name="category"
-                                   th:checked="${category=='CLIENT' or #strings.isEmpty(category)}" type="radio"
+                            <input class="form-check-input text-success" id="btnRadioClient" name="csvFileCategory"
+                                   th:checked="${csvFileCategory=='CLIENT' or #strings.isEmpty(csvFileCategory)}" type="radio"
                                    value="CLIENT">
                             <label class="form-check-label" for="btnRadioClient">
                                 Clients
@@ -29,8 +29,8 @@
                     <div class="col-3">
 
                         <div class="form-check">
-                            <input class="form-check-input" id="btnRadioAppointments" name="category"
-                                   th:checked="${category=='APPOINTMENT'}"
+                            <input class="form-check-input" id="btnRadioAppointments" name="csvFileCategory"
+                                   th:checked="${csvFileCategory=='APPOINTMENT'}"
                                    type="radio" value="APPOINTMENT">
                             <label class="form-check-label" for="btnRadioAppointments">
                                 Appointments
@@ -40,8 +40,8 @@
                     <div class="col-3">
 
                         <div class="form-check">
-                            <input class="form-check-input" id="btnRadioServices" name="category"
-                                   th:checked="${category=='SERVICE'}"
+                            <input class="form-check-input" id="btnRadioServices" name="csvFileCategory"
+                                   th:checked="${csvFileCategory=='SERVICE'}"
                                    type="radio" value="SERVICE">
                             <label class="form-check-label" for="btnRadioServices">
                                 Services
@@ -50,8 +50,8 @@
                     </div>
                     <div class="col-3">
                         <div class="form-check">
-                            <input class="form-check-input" id="btnRadioPurchases" name="category"
-                                   th:checked="${category=='PURCHASE'}"
+                            <input class="form-check-input" id="btnRadioPurchases" name="csvFileCategory"
+                                   th:checked="${csvFileCategory=='PURCHASE'}"
                                    type="radio" value="PURCHASE">
                             <label class="form-check-label" for="btnRadioPurchases">
                                 Purchases
