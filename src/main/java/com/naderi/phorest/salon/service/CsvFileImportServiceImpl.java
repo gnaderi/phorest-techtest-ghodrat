@@ -54,7 +54,6 @@ public class CsvFileImportServiceImpl implements CsvFileImportService {
 
     @Override
     public Map<String, Object> importCsvFile(MultipartFile csvFile, CsvFileCategory csvFileCategory) {
-        List<String> lines = null;
         Map<String, Object> propertiesMap = new HashMap<>();
         propertiesMap.put("result", Boolean.FALSE);
         try {
@@ -62,6 +61,7 @@ public class CsvFileImportServiceImpl implements CsvFileImportService {
                 propertiesMap.put("message", "File is empty or invalid!");
                 logger.error("File is empty or invalid!");
             } else {
+                List<String> lines;
                 try (InputStream inputStream = csvFile.getInputStream()) {
                     Path tempFile = Files.createTempFile(csvFileCategory.getValue(), ".txt");
                     Files.copy(inputStream, tempFile, StandardCopyOption.REPLACE_EXISTING);

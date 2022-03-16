@@ -1,10 +1,7 @@
-sm:
+spring:
   application:
     name:  Phorest Salon Ghodrat Version
     version: ${version}
-spring:
-  application:
-    name: Salon
   profiles:
     active: LOCAL
   output:
@@ -34,3 +31,5 @@ server:
       enabled: false
   compression:
     enabled: true
+#Initialize the app with the CSV files that provided with the challenge
+#preload: false
