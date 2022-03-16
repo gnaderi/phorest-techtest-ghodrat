@@ -12,8 +12,10 @@ import com.naderi.phorest.salon.repository.PurchaseRepository;
 import com.naderi.phorest.salon.repository.ServiceRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SalonServiceImpl implements SalonService {
@@ -30,16 +32,37 @@ public class SalonServiceImpl implements SalonService {
     }
 
     @Override
-    public Client createClient(ClientDto clientDto) {
-        return null;
-    }
-
-    @Override
     public ClientDto findClientById(String clientId) {
         Client c = clientRepository.findById(clientId).orElseThrow(() -> new InvalidRequestException("Client Id[" + clientId + "] is not valid!"));
         return new ClientDto(c.getId(), c.getFirstName(),
                 c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned());
 
+    }
+
+    @Override
+    public Client createClient(ClientDto dto) {
+        return clientRepository.save(new Client(UUID.randomUUID().toString()
+                , dto.getFirstName(), dto.getLastName(), dto.getEmail(), dto.getPhone(),
+                dto.getGender(), dto.getBanned(), LocalDateTime.now(), LocalDateTime.now()));
+    }
+
+    @Override
+    public ClientDto updateClient(ClientDto dto) {
+        Client client = clientRepository.findById(dto.getId()).orElseThrow(() -> new InvalidRequestException("Client{" + dto + "} not found!"));
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setPhone(dto.getPhone());
+        client.setGender(dto.getGender());
+        client.setBanned(dto.getBanned());
+        client.setUpdatedDate(LocalDateTime.now());
+        Client c = clientRepository.save(client);
+        return new ClientDto(c.getId(), c.getFirstName(),
+                c.getLastName(), c.getEmail(), c.getPhone(), c.getGender(), c.getBanned());
+    }
+
+    @Override
+    public void deleteClient(String clientId) {
+        clientRepository.deleteById(clientId);
     }
 
     @Override
@@ -66,7 +89,7 @@ public class SalonServiceImpl implements SalonService {
         List<ServiceDto> services = new ArrayList<>();
 
         serviceRepository.findAllByAppointmentId(appointmentId).forEach(service -> {
-            services.add(new ServiceDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(),service.getLoyaltyPoints()));
+            services.add(new ServiceDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(), service.getLoyaltyPoints()));
         });
         return services;
     }
@@ -75,7 +98,7 @@ public class SalonServiceImpl implements SalonService {
     public List<PurchaseDto> findAppointmentPurchases(String appointmentId) {
         List<PurchaseDto> purchases = new ArrayList<>();
         purchaseRepository.findAllByAppointmentId(appointmentId).forEach(service -> {
-            purchases.add(new PurchaseDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(),service.getLoyaltyPoints()));
+            purchases.add(new PurchaseDto(service.getId(), service.getAppointmentId(), service.getName(), service.getPrice(), service.getLoyaltyPoints()));
         });
         return purchases;
     }

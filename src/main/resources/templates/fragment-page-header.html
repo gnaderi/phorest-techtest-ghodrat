@@ -8,11 +8,11 @@
                         #httpServletRequest.getRequestURI().endsWith('index.html') ? 'active':''}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/secured/clients"
+                        <a class="nav-link" href="/clients"
                            th:classappend="${#httpServletRequest.getRequestURI().endsWith('/clients') ? 'active':''}">Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/secure/uploadCsvFile"
+                        <a class="nav-link" href="/uploadCsvFile"
                            th:classappend="${#httpServletRequest.getRequestURI().endsWith('/uploadCsvFile') ? 'active':''}">
                             Import CSV Files</a>
                     </li>

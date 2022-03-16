@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -11,45 +11,76 @@
 <body>
 <div th:replace="fragment-page-header :: page-header"/>
 <div class="container">
-    <div class="row">
-        <div class="bg-warning" th:if="${error}">
-            <h2 th:text="${error}"/>
-        </div>
-        <div class="bg-success" th:if="${importFileResult}">
-            <h2 th:text="${importFileResult}"/>
-        </div>
-        <div>
-            <form action="/secure/uploadCsvFile" enctype="multipart/form-data" method="POST">
-                <table>
-                    <tr>
-                        <td>File to upload:</td>
-                        <td><input name="csvFile" type="file"/></td>
-                    </tr>
-                    <tr>
-                        <div aria-label="Csv File Import Category" class="btn-group" role="group">
-                            <input autocomplete="off" checked class="btn-check" id="btnRadioClient" name="category"
-                                   type="radio" value="CLIENT">
-                            <label class="btn btn-outline-primary" for="btnRadioClient">Clients</label>
-
-                            <input autocomplete="off" class="btn-check" id="btnRadioAppointments" name="category"
-                                   type="radio" value="APPOINTMENT">
-                            <label class="btn btn-outline-primary" for="btnRadioAppointments">Appointments</label>
-
-                            <input autocomplete="off" class="btn-check" id="btnRadioServices" name="category"
-                                   type="radio" value="SERVICE">
-                            <label class="btn btn-outline-primary" for="btnRadioServices">Services</label>
-
-                            <input autocomplete="off" class="btn-check" id="btnRadioPurchases" name="category"
-                                   type="radio" value="PURCHASE">
-                            <label class="btn btn-outline-primary" for="btnRadioPurchases">Purchases</label>
+    <div class="card">
+        <h4 class="card-header"> Upload your CSV file data for following entities:</h4>
+        <div class="card-body">
+            <form action="/uploadCsvFile" enctype="multipart/form-data" method="POST">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input class="form-check-input text-success" id="btnRadioClient" name="category"
+                                   th:checked="${category=='CLIENT' or #strings.isEmpty(category)}" type="radio"
+                                   value="CLIENT">
+                            <label class="form-check-label" for="btnRadioClient">
+                                Clients
+                            </label>
                         </div>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Upload"/></td>
-                    </tr>
-                </table>
+                    </div>
+                    <div class="col-3">
+
+                        <div class="form-check">
+                            <input class="form-check-input" id="btnRadioAppointments" name="category"
+                                   th:checked="${category=='APPOINTMENT'}"
+                                   type="radio" value="APPOINTMENT">
+                            <label class="form-check-label" for="btnRadioAppointments">
+                                Appointments
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+
+                        <div class="form-check">
+                            <input class="form-check-input" id="btnRadioServices" name="category"
+                                   th:checked="${category=='SERVICE'}"
+                                   type="radio" value="SERVICE">
+                            <label class="form-check-label" for="btnRadioServices">
+                                Services
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input class="form-check-input" id="btnRadioPurchases" name="category"
+                                   th:checked="${category=='PURCHASE'}"
+                                   type="radio" value="PURCHASE">
+                            <label class="form-check-label" for="btnRadioPurchases">
+                                Purchases
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-3 fs-4">
+                       CSV File To Upload:
+                    </div>
+                    <div class="col-7">
+                        <input class="fs-4" name="csvFile" type="file"/>
+                    </div>
+                    <div class="col-2">
+                        <input class="fs-4" type="submit" value="Upload"/>
+                    </div>
+                </div>
             </form>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="text-warning" th:if="not ${result}">
+            <h3 th:text="${message}"/>
+        </div>
+        <div class="text-success" th:if="${result}">
+            <h3 th:text="${message}"/>
         </div>
     </div>
 </div>

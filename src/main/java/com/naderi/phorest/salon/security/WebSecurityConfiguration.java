@@ -18,7 +18,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String RSM_REMEMBER_ME_PARAM = "RSM-remember-me";
     public static final String RSM_REMEMBER_ME_COOKIE_NAME = "RSM-remember-me";
     private static final String[] PUBLIC_RESOURCE_LIST = new String[]{"/", "/public", "/js/**", "/img/**", "/css/**"};
-    private static final String[] SECURED_RESOURCE_LIST = new String[]{"**/secured/**"};
+    private static final String[] SECURED_RESOURCE_LIST = new String[]{"**/**"};
 
 
     @Override

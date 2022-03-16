@@ -36,11 +36,11 @@
                 <td><span th:text="${appointment.endDatetime}">   </span></td>
                 <td>
                     <span><a target="_blank"
-                             th:href="@{/secured/clients/{clientId}/appointments/{apptId}/services(clientId=${client.id},apptId=${appointment.id})}"/>Services</span>
+                             th:href="@{/clients/{clientId}/appointments/{apptId}/services(clientId=${client.id},apptId=${appointment.id})}"/>Services</span>
                 </td>
                 <td>
                     <span><a target="_blank"
-                             th:href="@{/secured/clients/{clientId}/appointments/{apptId}/purchases(clientId=${client.id},apptId=${appointment.id})}"/>Purchases</span>
+                             th:href="@{/clients/{clientId}/appointments/{apptId}/purchases(clientId=${client.id},apptId=${appointment.id})}"/>Purchases</span>
                 </td>
             </tr>
             </tbody>

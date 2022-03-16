@@ -12,41 +12,116 @@
 <body>
 <div th:replace="fragment-page-header :: page-header"/>
 <div class="container">
-    <div class="row">
-        <h3 class="bg-success">List of Clients</h3>
-        <table class="table card-body  table-bordered table-striped small sortable">
-            <thead>
-            <tr>
-                <th> Id</th>
-                <th> First Name</th>
-                <th> Last Name</th>
-                <th> Email</th>
-                <th> Phone</th>
-                <th> Gender</th>
-                <th> Banned</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${clients.empty}">
-                <td colspan="2"> No Clients Info Available</td>
-            </tr>
-            <tr th:each="client : ${clients}">
-                <td><span>
-                    <a target="_blank" th:href="@{/secured/clients/{clientId}/appointments(clientId=${client.id})}"
-                       th:text="${client.id}"/></span>
-                </td>
-                <td><span th:text="${client.firstName}">  </span></td>
-                <td><span th:text="${client.lastName}"> </span></td>
-                <td><span th:text="${client.email}">   </span></td>
-                <td><span th:text="${client.phone}"> </span></td>
-                <td><span th:text="${client.gender}"> </span></td>
-                <td><span th:text="${client.banned}"></span></td>
+    <br class="mt-5">
+    <h4> Create/Update Your Client:</h4>
 
-            </tr>
-            </tbody>
+    <form class="col card p-3 mb-5" method="post" th:action="${opt}=='UPDATE'? '/clients/update':'/clients/create'" th:object="${client}">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="Id">Client ID: </label>
+            <div class="col-sm-10">
+                <input aria-describedby="Id" class="col-sm-10 form-control" id="Id" placeholder="Id" readonly
+                       th:field="*{id}"
+                       type="text">
+            </div>
+        </div>
 
-        </table>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="firstName">Enter First Name: </label>
+            <div class="col-sm-10">
+                <input aria-describedby="firstName" class="col-sm-10 form-control" id="firstName" required
+                       placeholder="Enter First Name" th:field="*{firstName}" type="text">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="lastName">Enter Last Name: </label>
+            <div class="col-sm-10">
+                <input aria-describedby="lastName" class="col-sm-10 form-control" id="lastName" required
+                       placeholder="Enter Last Name" th:field="*{lastName}" type="text">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="email">Enter Email Address: </label>
+            <div class="col-sm-10">
+                <input aria-describedby="email" class="col-sm-10 form-control" id="email" placeholder="Email Address" required
+                       th:field="*{email}" type="text">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="phone">Phone Number: </label>
+            <div class="col-sm-10">
+                <input aria-describedby="phone" class="col-sm-10 form-control" id="phone" placeholder="Phone Number" required
+                       th:field="*{phone}" type="text">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="gender">Select a Gender </label>
+            <div class="col-sm-10">
+                <select aria-describedby="gender" class="col-sm-10 form-control" id="gender" required
+                        th:field="*{gender}">
+                    <option hidden th:field="*{gender}" value="">Select a Gender</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <input class="col-2 btn-success" th:value="${opt}=='UPDATE'? 'Update Client':'Create  Client'"
+                   type="submit">
+            <div class="col-8"></div>
+            <input class="col-2" type="reset" value="Reset">
+        </div>
+    </form>
+    <div class="row mt-5">
+         <div class="text-success" th:if="${message}">
+            <h3 th:text="${message}"/>
+        </div>
     </div>
+<br class="mt-5">
+<div class="row mt-5">
+    <h3>List of Salon's Clients</h3>
+    <hr>
+    <table class="table card-body  table-bordered table-striped small sortable">
+        <thead>
+        <tr>
+            <th> Id</th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Email</th>
+            <th> Phone</th>
+            <th> Gender</th>
+            <th> Banned</th>
+            <th> Update</th>
+            <th> Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${clients.empty}">
+            <td colspan="2"> No Clients Info Available</td>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td><span>
+                    <a target="_blank" th:href="@{/clients/{clientId}/appointments(clientId=${client.id})}"
+                       th:text="${client.id}"/></span>
+            </td>
+            <td><span th:text="${client.firstName}">  </span></td>
+            <td><span th:text="${client.lastName}"> </span></td>
+            <td><span th:text="${client.email}">   </span></td>
+            <td><span th:text="${client.phone}"> </span></td>
+            <td><span th:text="${client.gender}"> </span></td>
+            <td><span th:text="${client.banned}"></span></td>
+            <td><a class="btn btn-sm " th:href="'/clients/' + ${client.id} +'/update'">✏️</a></td>
+            <td><a class="btn btn-sm " th:href="'/clients/' + ${client.id} +'/delete'">🔥</a></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
 </div>
 </body>
 

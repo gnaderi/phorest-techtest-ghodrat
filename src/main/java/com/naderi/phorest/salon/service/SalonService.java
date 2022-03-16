@@ -12,10 +12,16 @@ import java.util.List;
 
 @Service
 public interface SalonService {
+    ClientDto findClientById(String clientId);
     @Transactional
     Client createClient(ClientDto clientDto);
 
-    ClientDto findClientById(String clientId);
+    @Transactional
+    ClientDto updateClient(ClientDto clientDto);
+
+    @Transactional
+    void deleteClient(String clientId);
+
 
     List<ClientDto> findAllClients();
 
