@@ -7,9 +7,6 @@ spring:
   output:
     ansi:
       enabled: always
-  h2:
-    console.path: /h2-console
-    cosole.enbaled: true
   datasource:
     url: jdbc:h2:mem:salon
     username: sa
@@ -29,6 +26,7 @@ server:
   error:
     whitelabel:
       enabled: false
+  port: ${PORT:8080}
   compression:
     enabled: true
 #Initialize the app with the CSV files that provided with the challenge

@@ -2,7 +2,7 @@
 # Build and Run Salon Project Note
 
 ## Salon Project
-* I have used Java(jdk17) , Gradle, Spring Boot, RESTFUL webservice withe GUI using Thymeleaf(https://www.thymeleaf.org/)
+* I have used Java(jdk17) , Gradle  7.4, Spring Boot, RESTFUL webservice withe GUI using Thymeleaf(https://www.thymeleaf.org/)
 * I have used spring for IOC, Spring JPA and Spring Boot
 * I used H2 Database Engine - it is good for rapid prototyping and development, but not suitable for production at least in most cases.
 * Docker file
@@ -23,9 +23,23 @@ This the main page that list the clients and operate CRUD operation as bellow::
 * Delete Client
 * Update Client
 * Sort Client By Loyally
+* Appointments
+  * By click on the hyperlink for ID
+  * By click on the `Appointements` link
+  
+      ![alt text](ClientsPage.png)
+##### Appointment Page
+Appointment page show the client's services and purchases that have done in the past.
+From Appointment page could go to Services Page or Purchases Page by clicking on their hyper bul link.
 
-  ![alt text](Clients.png)
+![alt text](AppointmentsPage.png)
+###### Services Page
+From Appointment page for each Client could land in Service page by click on the Services hyperlink in each row of appointments.
+![alt text](ServicesPage.png)
+###### Purchases Page
+From Appointment's page for each Client could land in Purchases page by click on the Purchases hyperlink in each row of appointments.
 
+![alt text](PurchasesPage.png)
 
 #### Import CSV Files
 This the  page that allow user to import all type of csv files(Clients, Appointments, Services, and Purchases).

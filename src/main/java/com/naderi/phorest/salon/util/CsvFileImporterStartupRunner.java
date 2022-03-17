@@ -1,4 +1,4 @@
-package com.naderi.phorest.salon;
+package com.naderi.phorest.salon.util;
 
 import com.naderi.phorest.salon.common.CsvFileCategory;
 import com.naderi.phorest.salon.service.CsvFileImportService;

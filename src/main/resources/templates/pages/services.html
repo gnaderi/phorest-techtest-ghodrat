@@ -13,8 +13,9 @@
 <div th:replace="fragment-page-header :: page-header"/>
 <div class="container">
     <div class="row">
-        <h3 class="bg-success"
-            th:text="'List of Services For Appointment#' + | ${appointmentId}|+ '. Client: '+ |${client.firstName} ${client.lastName}|"></h3>
+        <h3 class="bg-light text-success"
+            th:text="'List of Services For Appointment# ' + ${appointmentId}"></h3>
+        <h3 class="bg-light text-success" th:text="'Client: '+ |${client.firstName} ${client.lastName}|"></h3>
         <table class="table card-body  table-bordered table-striped small sortable">
             <thead>
             <tr>

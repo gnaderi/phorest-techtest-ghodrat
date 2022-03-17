@@ -5,7 +5,6 @@ public enum SalonErrors {
     VALIDATION_ERROR_422(1, "The request could not be validated by the server."),
     RESOURCE_NOT_FOUND(2, "Requested page/resource not found or has been removed!"),
     APP_CONFIGURATION_EXCEPTION(3, "There is an error in one of the application configuration files!"),
-    FILE_OR_RESOURCE_MISSING(4, "Yaml/Property/Resource file not missing!"),
     INVALID_REQUEST(5 ,"Invalid/bad http request to target page/resource!"),
     INVALID_YAML_EXCEPTION(6, "Invalid Yaml file or content value!"),
     NO_VALID_AUTHENTICATED_USER(7, "The user is not logged in or invalid. Please logout and login again!"),

@@ -29,22 +29,12 @@ import static java.util.stream.Collectors.toList;
 
 public abstract class BaseController {
     private static final String ERROR_PAGES_NAME = "pages/error";
+    private final static Logger log = LoggerFactory.getLogger(BaseController.class);
     @Value("${spring.profiles.active}")
     protected String activeProfile;
-    private final static Logger log = LoggerFactory.getLogger(BaseController.class);
-
-    @ExceptionHandler(InvalidYamlInputException.class)
-    public ModelAndView InvalidYamlInputExceptionHandler(HttpServletRequest req, InvalidYamlInputException exception) {
-        return createResponseBody(req, exception);
-    }
 
     @ExceptionHandler(AppConfigurationException.class)
     public ModelAndView invalidAppConfigurationExceptionHandler(HttpServletRequest req, AppConfigurationException exception) {
-        return createResponseBody(req, exception);
-    }
-
-    @ExceptionHandler(NoValidAuthenticatedUserException.class)
-    public ModelAndView noValidAuthenticatedUserErrorHandler(HttpServletRequest req, NoValidAuthenticatedUserException exception) {
         return createResponseBody(req, exception);
     }
 

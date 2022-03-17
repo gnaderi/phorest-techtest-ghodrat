@@ -13,12 +13,11 @@
 <div th:replace="fragment-page-header :: page-header"/>
 <div class="container">
     <div class="row">
-        <h3 class="bg-success" th:text="'List of Appointments For '+ |${client.firstName} ${client.lastName}|"></h3>
+        <h3 class="bg-light text-success" th:text="'List of Appointments For '+ |${client.firstName} ${client.lastName}|"></h3>
         <table class="table card-body  table-bordered table-striped small sortable">
             <thead>
             <tr>
                 <th> Id</th>
-                <th> Client</th>
                 <th> Start Date Time</th>
                 <th> End Date Time</th>
                 <th> Services</th>
@@ -31,7 +30,6 @@
             </tr>
             <tr th:each="appointment : ${appointments}">
                 <td><span th:text="${appointment.id}">  </span></td>
-                <td><span th:text="|${client.firstName} ${client.lastName}|">  </span></td>
                 <td><span th:text="${appointment.startDatetime}"> </span></td>
                 <td><span th:text="${appointment.endDatetime}">   </span></td>
                 <td>
