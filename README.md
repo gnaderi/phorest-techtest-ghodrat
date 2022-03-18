@@ -7,6 +7,7 @@
 * I used H2 Database Engine - it is good for rapid prototyping and development, but not suitable for production at least in most cases.
 * Docker file
 * Spring actuator
+* Google CloudRun
 
 ## Pages and Menu
 Pages are used bootstrap 5 and using Thymeleaf layout and style. Tables are sortable.
@@ -76,25 +77,32 @@ Use one of the several ways of running a Spring Boot application. Below are just
 # REST APIs
 * an endpoint to consume and parse csv files and import data into some database
   * Import Clients
-    * `curl -X PUT -v -F csvFileCategory="CLIENT" -F csvFile="@/Users/gnaderi/IdeaProjects/phorest-techtest-ghodrat/DATA_FILES/clients.csv" http://localhost:8080/restapi/v1/upload-csv-file`
+    * `curl -X PUT -v -F csvFileCategory="CLIENT" -F csvFile="@/Users/gnaderi/IdeaProjects/phorest-techtest-ghodrat/DATA_FILES/clients.csv" https://salon-pojisrui5q-nw.a.run.app/restapi/v1/upload-csv-file`
   * Import Appointments
-    * `curl -X PUT -v -F csvFileCategory="APPOINTMENT" -F csvFile="@/Users/gnaderi/IdeaProjects/phorest-techtest-ghodrat/DATA_FILES/appointments.csv" http://localhost:8080/restapi/v1/upload-csv-file`
+    * `curl -X PUT -v -F csvFileCategory="APPOINTMENT" -F csvFile="@/Users/gnaderi/IdeaProjects/phorest-techtest-ghodrat/DATA_FILES/appointments.csv" https://salon-pojisrui5q-nw.a.run.app/restapi/v1/upload-csv-file`
 * an endpoint to list the top X number (endpoint parameter eg: 50) of clients that have accumulated the most loyalty points since Y date (endpoint parameter eg: 2018-01-01). Please exclude any banned clients.
-  * `curl -i 'http://localhost:8080/restapi/v1/clients/top?date=2018-01-01&top=20'`
+  * `curl -i 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/top?date=2018-01-01&top=20'`
 
 
 
 Nice to have: 
 * at least one endpoint to update one of the entities
-  * `curl -X PUT -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -d '{}' http://localhost:8080/restapi/v1/clients`
-    * `curl -X PUT -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -d '{"id":"8f90ea2c-e518-4606-a02d-8c472973ea40","firstName":"GHODRAT","lastName":"NADERI","email":"sumikolynch@pollich.com","phone":"1-733-201-2652","gender":"Female","banned":true}' http://localhost:8080/restapi/v1/clients`
+  * `curl -X PUT -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -d '{}' https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients`
+    * `curl -X PUT -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -d '{"id":"8f90ea2c-e518-4606-a02d-8c472973ea40","firstName":"GHODRAT","lastName":"NADERI","email":"sumikolynch@pollich.com","phone":"1-733-201-2652","gender":"Female","banned":true}' https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients`
 * an endpoint to fetch a single entity by id
-  * `curl 'http://localhost:8080/restapi/v1/clients/{clientId}'`
-    *  `curl 'http://localhost:8080/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'`
+  * `curl 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/{clientId}'`
+    *  `curl 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'`
 * an endpoint to delete one of the entities
-  * `curl -X DELETE 'http://localhost:8080/restapi/v1/clients/{clientId}'`
-    * `curl -X DELETE 'http://localhost:8080/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'`
+  * `curl -X DELETE 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/{clientId}'`
+    * `curl -X DELETE 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'`
     
+
+#Application deployment
+The Salon application is deployed here:
+https://salon-pojisrui5q-nw.a.run.app/
+
+
+curl 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'
 
 ## Testing
 I believe I should it's done it, but I trust you know that I know how to write a good test suite!!!
