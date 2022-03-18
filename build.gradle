@@ -7,6 +7,11 @@ plugins {
 group = 'com.naderi.phorest'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+targetCompatibility = '17'
+allprojects {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
 
 configurations {
     compileOnly {
