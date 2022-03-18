@@ -2,8 +2,6 @@ spring:
   application:
     name:  Phorest Salon Ghodrat Version
     version: ${version}
-  profiles:
-    active: LOCAL
   output:
     ansi:
       enabled: always
@@ -26,6 +24,7 @@ server:
   error:
     whitelabel:
       enabled: false
+  port: 8080
   compression:
     enabled: true
 #Initialize the app with the CSV files that provided with the challenge
