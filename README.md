@@ -97,7 +97,7 @@ Nice to have:
     * `curl -X DELETE 'https://salon-pojisrui5q-nw.a.run.app/restapi/v1/clients/e0779fa6-7635-4df6-b906-d0d665ce5044'`
     
 
-#Application deployment
+## Application deployment
 The Salon application is deployed here:
 https://salon-pojisrui5q-nw.a.run.app/
 
